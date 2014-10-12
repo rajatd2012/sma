@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}All Quizzes{% endblock %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+		<h2>List of quizzes</h2>
+		{% if quiz_list %}
+			<table class="table table-striped">
+
+			  <thead>
+				<tr>
+				  <th>Title</th>
+				  <th>Course</th>
+				  <th>Exam</th>
+				  <th>Single attempt</th>
+				  <th></th>
+				</tr>
+			  </thead>
+
+			  <tbody>
+
+			{% for quiz in quiz_list %}
+
+				<tr>
+				  <td>{{ quiz.title }}</td>
+				  <td>{{ quiz.course }}</td>
+				  <td>{{ quiz.exam_paper }}</td>
+				  <td>{{ quiz.single_attempt }}</td>
+				  <td>
+					<a href="{% url 'quiz_start_page' slug=quiz.url %}">
+					  View details
+					</a>
+				</tr>
+
+			{% endfor %}
+			  </tbody>
+
+			</table>
+
+		{% else %}
+			<p>There are no available quizzes.</p>
+		{% endif %}
+		
+	{% else %}
+	<h4>Please <a href="/learn/login/">Login</a> to the learning portal to attempt the quiz</h4>
+	{% endif %}
+{% endblock %}

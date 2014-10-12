@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}
+Result of {{ sitting.quiz.title }} for {{ sitting.user }}
+{% endblock %}
+
+{% block content %}
+<h2>Quiz title: {{ sitting.quiz.title }}</h2>
+<h3>Course: {{ sitting.quiz.course }}</h3>
+<p>{{ sitting.quiz.description }}</p>
+<hr>
+<p>User: {{ sitting.user }}</p>
+<p>Score: {{ sitting.get_percent_correct }}%</p>
+
+<table class="table table-bordered table-striped">
+
+  <thead>
+	<tr>
+	  <th>Question</th>
+	  <th>User answer</th>
+	  <th></th>
+	  <th></th>
+	</tr>
+  </thead>
+
+  <tbody>
+{% for question, user_name in sitting.questions_with_user_answers.items %}
+
+	<tr>
+	  <td>{{ question.content }}</td>
+	  <td>{{ user_name }}</td>
+	  <td>
+		{% if question.id in sitting.get_incorrect_questions %}
+		  <p>incorrect</p>
+		{% else %}
+		  <p>Correct</p>
+		{% endif %}
+	  </td>
+	  <td>
+		<form action="" method="get">
+		  <input type=hidden name="id" value="{{ question.id }}">
+		  <button type="submit">Toggle whether correct</button>
+		</form>
+	  </td>
+	</tr>
+
+{% endfor %}
+
+  </tbody>
+
+</table>
+{% endblock %}

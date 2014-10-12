@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Login to iQuanti Learning Portal{% endblock %}
+
+{% block content %}
+    <h1>Login to iQuanti Learning Portal</h1>
+
+    <form role="form" id="login_form" method="post" action="/learn/login/">
+        <h2 >Please sign in</h2>
+        {% csrf_token %}
+
+        {% if bad_details %}
+        <p><strong>Your username and/or password were incorrect!</strong></p>
+        {% elif disabled_account %}
+        <p><strong>Your Learning account is currently disabled; we can't log you in!</strong></p>
+        {% endif %}
+
+        <div class="form-group"> Username: 
+		</div>
+		<input type="text" class="form-control" placeholder="Username" name="username" value="" size="30" />
+		<BR>
+		<div class="form-group">Password: 
+		</div>
+		<input type="password" class="form-control" placeholder="Password" name="password" value="" size="30" />
+        <br />
+        <button class="btn btn-primary" type="submit">Sign in</button>
+    </form>
+
+    <!-- /container -->
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+
+{% block title %} {{ quiz.title }} {% endblock %}
+{% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
+
+{% block content %}
+
+{% if previous.answers %}
+
+  <p class="muted"><small>The previous question:</small></p>
+  <p>{{ previous.previous_question }}</p>
+
+  {% if previous.previous_outcome %}
+	<div class="alert alert-success">
+  {% else %}
+	<div class="alert alert-warning">
+  {% endif %}
+  	  <p><small>
+		Your answer was </small>
+		<strong>
+		  {{ previous.previous_outcome|yesno:"correct,incorrect" }}
+		</strong>
+	  </p>
+
+	</div>
+
+	{% include 'correct_answer.html' %}
+
+	<p><strong>Explanation:</strong></p>
+	<div class="well " style="background-color: #fcf8e3;">
+	  <p>{{ previous.previous_question.explanation }}</p>
+	</div>
+
+	<hr>
+
+{% endif %}
+
+<br />
+
+{% if question %}
+
+<p>
+  Question course:
+  <strong>{{ question.course }}</strong>
+</p>
+
+<p class="lead">{{ question.content }}</p>
+
+<form action="" method="POST">{% csrf_token %}
+  <input type=hidden name="question_id" value="{{ question.id }}">
+
+  <ul class="list-group">
+
+	{% for answer in form.answers %}
+	  <li class="list-group-item">
+	    {{ answer }}
+	  </li>
+	{% endfor %}
+
+  </ul>
+  <input type="submit" value="Check" class="btn btn-primary" >
+</form>
+
+{% endif %}
+
+<hr>
+
+
+{% endblock %}

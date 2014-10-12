@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Register for Learning app{% endblock %}
+
+{% block content %}
+			<h1>Register with iQuanti Learning</h1>
+
+			{% if registered %}
+			<p>Thank you for registering.</p>
+
+			<p><a href="/learn/login/">Login</a> when you are ready to iQuanti Learning Portal.</p>
+			{% else %}
+			<form id="user_form" method="post" action="/learn/register/"
+				  enctype="multipart/form-data">
+				{% csrf_token %}
+				<h2 >Sign up Here</h2>
+				<!-- Display each form field here -->
+
+				{% for field in user_form.visible_fields %}
+				<div class="form-group">
+				{{ field.errors }}
+				{{ field.help_text }}
+				</div>
+				{{ field }}<br ><br>
+				
+				{% endfor %}
+				
+				{% for field in profile_form.visible_fields %}
+				<div class="form-group">
+				{{ field.errors }}
+				{{ field.help_text }}
+				</div>
+				{{ field }}<br><br>
+				{% endfor %}
+
+				<br />
+				<!-- Provide a button to click to submit the form. -->
+				<input class="btn btn-primary" type="submit" name="submit" value="Register"/>
+			</form>
+			{% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}All Quizzes{% endblock %}
+
+{% block content %}
+<h2>Course list</h2>
+
+<ul>
+  {% for cat in course_list %}
+  <li>
+	<a href="{% url 'quiz_course_list_matching' course_name=cat.course %}">
+	  {{ cat.course }}
+	</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

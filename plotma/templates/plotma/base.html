@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="{% block description %}{% endblock %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+
+<!-- styles -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<title>iQuanti Learning Site | {% block title %}{% endblock %}</title>
+
+</head>
+
+ <body>
+    <nav class="navbar navbar-inverse ">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">iQuanti Learning Portal</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Security</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">LAMP <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">PHP</a></li>
+                <li><a href="#">WordPress</a></li>
+                <li><a href="#">MySQL</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Python<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Python</a></li>
+                <li><a href="#">DJango</a></li>
+              </ul>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Soft Skills <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Email Communication</a></li>
+                <li><a href="#">Telephone etiquette </a></li>
+                <li><a href="#">Presentation Skills</a></li>
+              </ul>
+          </ul>
+		   <ul class="nav navbar-nav">
+			   {% if user.is_authenticated %}
+				<li class="navbar-text">Welcome, {{ user.username }}!</li>
+				<li><a href="/learn/logout/">Logout</a></li>
+			   {% else %}
+				<li><a href="/learn/register/">Register</a></li>
+				<li><a href="/learn/login/">Login</a></li>
+			   {% endif %}
+		   </ul>
+		  
+		</div>
+      </div>
+
+	</nav>
+  
+    <div class="container">
+	    <div class="row">
+			
+			<div class="col-md-9">
+					<!-- Before the quiz content -->
+
+					{% block content %}
+
+					{% endblock %}
+
+					<!-- After the quiz content -->
+
+			</div>
+
+			<div class="col-md-3">
+				<BR>
+					<BR>
+					<strong >Read instructions</strong>
+					<BR>
+					<BR>
+					<strong>Lorrel impsum</strong>
+					<BR>
+					<BR>
+			  <ul class="nav nav-pills nav-stacked">
+				<li class="active"><a href="#">Related Documents</a></li>
+				<li class="dropdown">
+				  <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Policies <span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#">Password policy</a></li>
+					<li><a href="#">Hardening Policy</a></li>
+				  </ul>
+				</li>
+				<li class="dropdown">
+				  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Security Tips<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#">Access Card</a></li>
+					<li><a href="#">Clear Desk Policy</a></li>
+				  </ul>
+				</li>
+			</ul>
+			</div>
+
+			<div class="clearfix visible-lg"></div>
+		</div>
+
+ 	</div>
+	</div>
+  </body>
+</html>
